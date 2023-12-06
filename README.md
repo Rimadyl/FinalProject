@@ -11,7 +11,7 @@ Final project for CSCI 112 is blackjack! This readme is here for documentation o
 
 Who is doing what:
 
-  Sayge Bentley - Roll for the computer to either select "hit" or "stay" [Can be more a complex RNG algorithim, if desired]
+  Sayge Bentley - Dealer drawing & Evaluating deck values
 
   Alexander England - Have the player be able to select "hit" or "stay"
 

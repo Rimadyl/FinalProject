@@ -18,9 +18,11 @@ typedef struct {
 
 void printDeck(Card* wDeck);
 void shuffle(Card* wDeck);
+
 void fillDeck(Card* wDeck, const char* wFace[], const char* wSuit[]);
 int evaluateValue(Card* deck, int* deckLength);
 void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandCardCount);
+void playerTurn(Card* deck[], Card* hand[], int* handCardCount);
 
 int main(void)
 {
@@ -42,32 +44,9 @@ int main(void)
 
 	dealerTurn(deck, dealerHand, &dealerValue, &dealerHandCardCount);
 
-	
-	//while(!quit)
-	//{
-	//	while()
-	//	{
-	//		playerValue = 0;
-	//		dealerValue = 0;
-
-	//		initHand(deck, dealerHand, plyHand, playerValue, dealerValue);
-
-	//		playerValue = playerMove();
-	//		if(playerValue > 21)
-	//		{
-
-	//			break;
-	//		}
-	//		// When dealer cards dealt, if > 17 STAND, if not draw until >17 or bust.
-	//		dealerValue = dealerTurn(deck, dealerHand, &dealerValue, &dealerHandCardCount);
-	//		if(dealerValue > 21)
-	//		{
-	//			break;
-	//		}
-	//	}
-	//}
-
 	printDeck(deck);
+	// Player's turn
+	playerTurn(deck, plyHand, &plyHandCardCount);
 	system("pause");
 }
 void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandCardCount)
@@ -87,13 +66,10 @@ void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandC
 		while(dealerDone != 1)
 		{
 			int i = rand() % CARDS;
-			dealerHand[*dealerHandCardCount].face = deck[i].face;
-			dealerHand[*dealerHandCardCount].suit = deck[i].suit;
-			dealerHand[*dealerHandCardCount].value = deck[i].value;
-			
-
+			dealerHand[*dealerHandCardCount] = deck[i];
 			*dealerValue = evaluateValue(dealerHand, dealerHandCardCount);
 			(*dealerHandCardCount)++;
+      
 			if (*dealerValue > 21)
 			{
 				printf("The dealer busts!\n");
@@ -125,7 +101,7 @@ int evaluateValue(Card* deck, int *deckLength)
 	int value = 0;
 	for(int i = 0; i <= *deckLength; i++)
 	{
-		value += deck[i].value; 
+		value += deck[i].value;  
 	}
 	return (value);
 }
@@ -164,4 +140,31 @@ void printDeck(Card* wDeck)
 		printf("%5s of %-8s%s", wDeck[i].face, wDeck[i].suit, (i + 1) % 4 ? " " :
 			"\n");
 	}
+}
+
+void playerTurn(Card* deck[], Card* hand[], int* handCardCount) 
+{
+	char choice;
+	do {
+		// Draw card
+		hand[*handCardCount] = deck[*handCardCount];
+		(*handCardCount)++;
+
+		// Display players hand
+		printf("Player's hand: ");
+		for (int i = 0; i < *handCardCount; i++) {
+			printf("%s of %s ", hand[i]->face, hand[i]->suit);
+		}
+		printf("\n");
+
+		// Check if busted
+		if (evaluateValue(hand, *handCardCount) > 21) {
+			printf("Busted! Player's hand value: %d\n", evaluateValue(hand, *handCardCount));
+			return;
+		}
+
+		// Ask the player to draw or stay
+		printf("Do you want to draw another card? (y/n): ");
+		scanf(" %c", &choice);
+	} while (choice == 'y' || choice == 'Y');
 }
