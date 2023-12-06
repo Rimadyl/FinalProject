@@ -40,7 +40,6 @@ int main(void)
 	shuffle(deck);
 	printf("Deck is shuffled\n");
 
-	
 
 	dealerTurn(deck, dealerHand, &dealerValue, &dealerHandCardCount);
 
@@ -79,6 +78,7 @@ void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandC
 	{
 		printf("The dealer holds...\n");
 		printf("Dealer card count: %d\n", *dealerHandCardCount);
+		printf("Dealer card value: %d\n", *dealerValue);
 		return;
 	}
 	else
@@ -100,19 +100,22 @@ void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandC
 			{
 				printf("The dealer busts!\n");
 				printf("Dealer card count: %d\n", *dealerHandCardCount);
+				printf("Dealer card value: %d\n", *dealerValue);
 				dealerDone = 1;
 			}
 			else if (*dealerValue > 17)
 			{
 				printf("The dealer holds...\n");
 				printf("Dealer card count: %d\n", *dealerHandCardCount);
+				printf("Dealer card value: %d\n", *dealerValue);
 				dealerDone = 1;
 			}
 			// MAX CARD COUNT IS 5
-			else if (*dealerHandCardCount > 5)
+			else if (*dealerHandCardCount = MAXCARDS)
 			{
-				printf("The dealer has reached the card cap!");
+				printf("The dealer has reached the card cap!\n");
 				printf("Dealer card count: %d\n", *dealerHandCardCount);
+				printf("Dealer card value: %d\n", *dealerValue);
 				dealerDone = 1;
 			}
 			
@@ -122,7 +125,7 @@ void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandC
 int evaluateValue(Card* deck, int *deckLength)
 {
 	int value = 0;
-	for(int i = 0; i <= *deckLength; i++)
+	for(int i = 0; i < *deckLength; i++)
 	{
 		value += deck[i].value; 
 	}
