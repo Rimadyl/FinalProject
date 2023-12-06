@@ -17,7 +17,7 @@ void printDeck(Card* wDeck);
 void shuffle(Card* wDeck);
 void fillDeck(Card* WDec, const char* wFace[], const char* wSuit[]);
 int evaluateValue(Card* deck[], int length);
-
+void playerTurn(Card* deck[], Card* hand[], int* handCardCount);
 int main(void)
 {
 	// Update these accordingly inside corresponding functions
@@ -37,6 +37,8 @@ int main(void)
 	shuffle(deck);
 	printf("Deck is shuffled\n");
 	printDeck(deck);
+	// Player's turn
+	playerTurn(deck, plyHand, &plyHandCardCount);
 	system("pause");
 }
 // CALL THIS FOR A REAL VALUE INSTEAD OF A BUNCH OF CARDS
@@ -45,7 +47,7 @@ int evaluateValue(Card* deck[], int length)
 	int value = 0;
 	for(int i = 0; i <= length; i++)
 	{
-		value += deck[i].value; 
+		value += deck[i].value;  
 	}
 	return (value);
 }
@@ -82,4 +84,31 @@ void printDeck(Card* wDeck)
 		printf("%5s of %-8s%s", wDeck[i].face, wDeck[i].suit, (i + 1) % 4 ? " " :
 			"\n");
 	}
+}
+
+void playerTurn(Card* deck[], Card* hand[], int* handCardCount) 
+{
+	char choice;
+	do {
+		// Draw card
+		hand[*handCardCount] = deck[*handCardCount];
+		(*handCardCount)++;
+
+		// Display players hand
+		printf("Player's hand: ");
+		for (int i = 0; i < *handCardCount; i++) {
+			printf("%s of %s ", hand[i]->face, hand[i]->suit);
+		}
+		printf("\n");
+
+		// Check if busted
+		if (evaluateValue(hand, *handCardCount) > 21) {
+			printf("Busted! Player's hand value: %d\n", evaluateValue(hand, *handCardCount));
+			return;
+		}
+
+		// Ask the player to draw or stay
+		printf("Do you want to draw another card? (y/n): ");
+		scanf(" %c", &choice);
+	} while (choice == 'y' || choice == 'Y');
 }
