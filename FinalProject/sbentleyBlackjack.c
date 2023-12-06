@@ -35,6 +35,16 @@ int main(void)
 	printDeck(deck);
 	system("pause");
 }
+
+void playRound(Card* wDeck,Card* dealerHand, Card* plyHand)
+{
+ 	for (int i = 0; i < 2; ++i) {
+		dealerHand[i] = wDeck[i];
+		plyHand[i] = wDeck[i + 2];
+	}
+	printf("\nDealer's hand:%s of %s, hidden\n", dealerHand[0].face, dealerHand[0].suit);
+	printf("Your hand: %s of %s, %s of %s\n", plyHand[0].face, plyHand[0].suit, plyHand[1].face, plyHand[1].suit);
+
 void fillDeck(Card* wDeck, const char* wFace[], const char* wSuit[])
 {
 	for (int i = 0; i < CARDS; ++i) {
