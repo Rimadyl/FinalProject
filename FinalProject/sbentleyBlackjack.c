@@ -19,7 +19,7 @@ typedef struct {
 void printDeck(Card* wDeck);
 void shuffle(Card* wDeck);
 void fillDeck(Card* wDeck, const char* wFace[], const char* wSuit[]);
-int evaluateValue(Card* deck, int * deckLength);
+int evaluateValue(Card* deck, int* deckLength);
 void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandCardCount);
 
 int main(void)
@@ -39,7 +39,6 @@ int main(void)
 	printDeck(deck);
 	shuffle(deck);
 	printf("Deck is shuffled\n");
-
 
 	dealerTurn(deck, dealerHand, &dealerValue, &dealerHandCardCount);
 
@@ -83,7 +82,6 @@ void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandC
 	}
 	else
 	{
-		
 		// Dealer loop
 		int dealerDone = 0;
 		while(dealerDone != 1)
@@ -111,7 +109,7 @@ void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandC
 				dealerDone = 1;
 			}
 			// MAX CARD COUNT IS 5
-			else if (*dealerHandCardCount = MAXCARDS)
+			else if (*dealerHandCardCount == MAXCARDS)
 			{
 				printf("The dealer has reached the card cap!\n");
 				printf("Dealer card count: %d\n", *dealerHandCardCount);
@@ -125,7 +123,7 @@ void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandC
 int evaluateValue(Card* deck, int *deckLength)
 {
 	int value = 0;
-	for(int i = 0; i < *deckLength; i++)
+	for(int i = 0; i <= *deckLength; i++)
 	{
 		value += deck[i].value; 
 	}
