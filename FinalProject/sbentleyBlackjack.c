@@ -49,6 +49,18 @@ int main(void)
 	playerTurn(deck, plyHand, &plyHandCardCount);
 	system("pause");
 }
+
+
+void playRound(Card* wDeck,Card* dealerHand, Card* plyHand)
+{
+ 	for (int i = 0; i < 2; ++i) {
+		dealerHand[i] = wDeck[i];
+		plyHand[i] = wDeck[i + 2];
+	}
+	printf("\nDealer's hand:%s of %s, hidden\n", dealerHand[0].face, dealerHand[0].suit);
+	printf("Your hand: %s of %s, %s of %s\n", plyHand[0].face, plyHand[0].suit, plyHand[1].face, plyHand[1].suit);
+}
+=======
 void dealerTurn(Card* deck, Card* dealerHand, int *dealerValue, int *dealerHandCardCount)
 {
 	// Initial check
@@ -106,6 +118,7 @@ int evaluateValue(Card* deck, int *deckLength)
 	return (value);
 }
 
+
 void fillDeck(Card* wDeck, const char* wFace[], const char* wSuit[])
 {
 	for (int i = 0; i < CARDS; ++i) {
@@ -142,6 +155,8 @@ void printDeck(Card* wDeck)
 	}
 }
 
+=======
+
 void playerTurn(Card* deck[], Card* hand[], int* handCardCount) 
 {
 	char choice;
@@ -168,3 +183,4 @@ void playerTurn(Card* deck[], Card* hand[], int* handCardCount)
 		scanf(" %c", &choice);
 	} while (choice == 'y' || choice == 'Y');
 }
+
