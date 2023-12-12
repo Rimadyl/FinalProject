@@ -145,6 +145,7 @@ int main(void)
 	system("pause");
 }
 
+
 void printInstructions()
 {
 	char choice;
@@ -233,6 +234,7 @@ int dealerTurn(Card* deck, Card* dealerHand, int *dealerHandCardCount, int *card
 		return(0);
 	
 }
+
 int evaluateValue(Card* deck, int *deckLength)
 {
 	int deckValue = 0;
@@ -246,7 +248,7 @@ int evaluateValue(Card* deck, int *deckLength)
 		}
 		deckValue += deck[i].value;
 	}
-	// Dynamically chance "Ace" cards from 11 to 1 by updating the TOTAL, depending on which one busts the player or not
+	// Dynamically change "Ace" cards from 11 to 1 by updating the TOTAL, depending on which one busts the player or not
 	for(int i = 0; i < numAces; i++)
 	{
 		if (deckValue <= 21)
@@ -303,6 +305,7 @@ int playerTurn(Card* deck, Card* hand, int* handCardCount, int* cardNumber)
 	return(0);
 }
 
+
 void fillDeck(Card* wDeck, const char* wFace[], const char* wSuit[])
 {
 	for (int i = 0; i < CARDS; ++i) {
@@ -328,3 +331,15 @@ void shuffle(Card* wDeck)
 		wDeck[j] = temp;
 	}
 }
+
+// Remove when finished
+void printDeck(Card* wDeck)
+{
+	int i = 0;
+	for (i = 0; i < CARDS; ++i) {
+		printf("%5s of %-8s%s", wDeck[i].face, wDeck[i].suit, (i + 1) % 4 ? " " :
+			"\n");
+	}
+}
+
+
